@@ -11,16 +11,11 @@ function App() {
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ];
-  console.log(phoneBook);
+
   // ================================================================
-  const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useState(() => {
     const contactsLS = localStorage.getItem('key-contact');
-
-    if (contactsLS !== null) {
-      return JSON.parse(contactsLS);
-    }
-    return phoneBook;
+    return contactsLS ? JSON.parse(contactsLS) : phoneBook;
   });
 
   useEffect(() => {
@@ -41,17 +36,18 @@ function App() {
   };
 
   // фільтр
-  const handleFilter = newValue => {
-    setFilter(newValue);
-  };
+  const [filter, setFilter] = useState('');
+
+  const findContacts = contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
+
   // ============================================================
   return (
     <>
       <div>
         <h1>Phonebook</h1>
         <ContactForm onAdd={addContact} />
-        <SearchBox value={filter} onFilter={handleFilter} />
-        <ContactList phoneBook={contacts} onDelete={deleteContact} />
+        <SearchBox onFilter={e => setFilter(e.target.value)} />
+        <ContactList phoneBook={findContacts} onDelete={deleteContact} />
       </div>
     </>
   );

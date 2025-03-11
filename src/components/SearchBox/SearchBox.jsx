@@ -1,12 +1,8 @@
-export default function SearchBox({ value, onFilter }) {
-  const handleChange = event => {
-    onFilter(event.target.value);
-    console.log(event.target.value);
-  };
+export default function SearchBox({ onFilter }) {
   return (
     <div>
       <p>Find contacts by name</p>
-      <input type="text" value={value} onChange={handleChange} />
+      <input type="text" onChange={onFilter} />
     </div>
   );
 }

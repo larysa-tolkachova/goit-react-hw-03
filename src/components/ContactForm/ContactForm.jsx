@@ -14,8 +14,8 @@ export default function ContactForm({ onAdd }) {
   };
 
   const StyleSchema = Yup.object().shape({
-    name: Yup.string().min(3, 'To Short!').max(50, 'To long!').required('Required'),
-    number: Yup.string().min(3, 'To Short!').max(50, 'To long!').required('Required'),
+    name: Yup.string().min(3, 'To Short!').max(50, 'To long!').required('This field is required'),
+    number: Yup.string().min(3, 'To Short!').max(50, 'To long!').required('This field is required'),
   });
 
   const handleSubmit = (values, actions) => {
@@ -30,17 +30,23 @@ export default function ContactForm({ onAdd }) {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={StyleSchema}>
       <Form className={css.container}>
-        <div>
-          <label htmlFor={nameId}>Name</label>
+        <div className={css.input}>
+          <label htmlFor={nameId}>
+            <b>Name</b>
+          </label>
           <Field type="text" name="name" id={nameId}></Field>
-          <ErrorMessage name="name" component="span"></ErrorMessage>
+          <ErrorMessage name="name" component="span" className={css.error}></ErrorMessage>
         </div>
-        <div>
-          <label htmlFor={numberId}>Number</label>
-          <Field type="phone" name="number" id={numberId} placeholder="123-45-67"></Field>
-          <ErrorMessage name="number" compponent="span"></ErrorMessage>
+        <div className={css.input}>
+          <label htmlFor={numberId}>
+            <b>Number</b>
+          </label>
+          <Field type="text" name="number" id={numberId} placeholder="123-45-67"></Field>
+          <ErrorMessage name="number" component="span" className={css.error}></ErrorMessage>
         </div>
-        <button type="submit">Add contakt</button>
+        <button type="submit" className={css.btn}>
+          Add contakt
+        </button>
       </Form>
     </Formik>
   );

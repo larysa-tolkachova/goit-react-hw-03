@@ -4,7 +4,7 @@ import { FaUser, FaPhone } from 'react-icons/fa6';
 export default function Contact({ contactPerson: { name, number, id }, onDelete }) {
   return (
     <div className={css.container}>
-      <ul>
+      <ul className={css.ul}>
         <li>
           <FaUser /> {name}
         </li>
